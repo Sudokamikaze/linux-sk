@@ -2,7 +2,7 @@
 #                                         Build Options
 ###########################################################################################################
 
-use_optimization="IVYBRIDGE"
+use_optimization="yes"
 # "yes": Use native gcc optimizations
 # "no": Disable any optimization
 # or define your cpu family in _use_optimization. Supported codenames listed bellow
