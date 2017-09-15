@@ -1,6 +1,6 @@
 linux-sk
 =============
- Fast and pure, many options, stable as rock. For archlinux
+ Fast and pure, many options, stable as rock. For archlinux, based on -ZEN sources
 
  Also this kernel support modprobed-db feature, [read](https://wiki.archlinux.org/index.php/Modprobed-db) about it on archwiki
 
@@ -10,16 +10,25 @@ linux-sk
 Our features
 ========
 
+* Latest ZEN sources
 * LZ4 Compression. Inspired by @petter3k
 * HZ=250
 * Modprobed-db support
 * Reiser4 support
 * GCC optimized 
-* Have custom patches
+* Have custom patches(Read about it bellow)
 * NUMA disabled by default(Also you can easily enable back)
 * Disabled some unneeded debugging 
 * Have native & easy support for custom toolchains
 
+Our patches
+========
+
+Includes high level GCC optimizations. Inspired & Ported from my android kernels
+
+It have graphite and some -O3-related flags
+
+BTW, this patch doesn't apply on kernel modules, because building were failed
 
 ##### Guidelines
 
