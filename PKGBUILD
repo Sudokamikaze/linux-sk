@@ -60,7 +60,8 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
         # pacman hook for initramfs regeneration
         '90-linux.hook'
         # standard config files for mkinitcpio ramdisk
-        'linux.preset')
+        'linux.preset'
+        "reiser4-for-4.13.0.patch")
 
 sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             'SKIP'
@@ -71,7 +72,8 @@ sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             '81ed89cdab9ae579e9cb1602893fd618ddc2d90bc0460e262d3e5934bd440114'
             '3b9417070ed7716e2e55897e348175e2c2fe935b888a7050a57bdb906cd68e6b'
             '834bd254b56ab71d73f59b3221f056c72f559553c04718e350ab2a3e2991afe0'
-            'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65')
+            'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
+            'SKIP')
 
 _kernelname=${pkgbase#linux}
 
@@ -129,8 +131,7 @@ prepare() {
 
   # Enable reiser4
   if [ "$use_reiser" == "yes" ]; then
-echo "I implement it lately..."
-#    patch -p1 -i "${srcdir}/reiser.patch"
+  patch -p1 -i "${srcdir}/reiser4-for-4.13.0.patch"
   fi
 
   if [ "${_kernelname}" != "" ]; then
