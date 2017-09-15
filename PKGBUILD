@@ -112,7 +112,7 @@ prepare() {
 
   # disable NUMA since 99.9% of users do not have multiple CPUs but do have multiple cores in one CPU
   # see, https://bugs.archlinux.org/task/31187
-  if [ -n "$disable_numa" == "yes" ]; then
+  if [ "$disable_numa" == "yes" ]; then
      sed -i -e 's/CONFIG_NUMA=y/# CONFIG_NUMA is not set/' \
       -i -e '/CONFIG_AMD_NUMA=y/d' \
       -i -e '/CONFIG_X86_64_ACPI_NUMA=y/d' \
