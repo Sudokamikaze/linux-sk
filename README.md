@@ -7,6 +7,19 @@ linux-sk
  My performance [patch](https://github.com/Sudokamikaze/makefile_patchset) source in my repositories.
 
 
+Our features
+========
+
+* LZ4 Compression. Inspired by @petter3k
+* HZ=250
+* Modprobed-db support
+* Reiser4 support
+* GCC optimized 
+* Have custom patches
+* NUMA disabled by default(Also you can easily enable back)
+* Disabled some unneeded debugging 
+* Have native & easy support for custom toolchains
+
 
 ##### Guidelines
 
