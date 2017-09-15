@@ -39,7 +39,7 @@ hard_optimization="yes"
 
 ###########################################################################################################
 
-pkgbase=linux-heaven
+pkgbase=linux-sk
 _srcname=linux-4.13
 _zenpatch=zen-4.13.2-6b7b0a3850fe6190ad8b660911d7984403ee7345.diff
 pkgver=4.13.2
