@@ -15,6 +15,9 @@ use_optimization This variable expects these definitions:
 ```
 
 ```
+
+If you have AMD cpu, just define "yes" in variable
+
 "yes" If you want to get native optimizations for your cpu 
 "no" Disable any GCC cpu optimization
 
