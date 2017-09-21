@@ -70,10 +70,10 @@ sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             '50180fe5e3aaa4cfd4d4c86df3845ddd56b4a88027cfed70c04bf435bf4d7cfe'
             'SKIP'
             '81ed89cdab9ae579e9cb1602893fd618ddc2d90bc0460e262d3e5934bd440114'
-            '3b9417070ed7716e2e55897e348175e2c2fe935b888a7050a57bdb906cd68e6b'
+            '0753dd0b93b05f2163b6e0117df6ab7b8567931aba36b265fe76bf3b31e44b23'
             '834bd254b56ab71d73f59b3221f056c72f559553c04718e350ab2a3e2991afe0'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            'SKIP')
+            'c24f369bb10198f11aefeca75fabafbb8f17ba460d842d6ff832fd846da9e58e')
 
 _kernelname=${pkgbase#linux}
 
