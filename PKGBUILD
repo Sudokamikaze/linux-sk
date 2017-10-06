@@ -85,18 +85,31 @@ prepare() {
 
   # Our tweaks begin here
 
+  if [ "$cpu_optimization" == "auto" ]; then
+  autovar=$(gcc -march=native -Q --help=target| grep march | awk {'print $2'})
+  echo " "
+  echo "CPU name autodetection detect this name: $autovar" 
+  echo -n "Does it detected correctly?[Y/N]: "
+  read autodetect
+  case "$autodetect" in
+  y|Y) unset cpu_optimization
+  cpu_optimization=$autovar ;;
+  n|N) exit 1;;
+  esac
+  fi
+
   case "$cpu_optimization" in
   yes) sed -i -e 's/# CONFIG_MNATIVE is not set/CONFIG_MNATIVE=y/' ./.config ;;
   no) sed -i -e 's/# CONFIG_GENERIC_CPU is not set/CONFIG_GENERIC_CPU=y/' ./.config ;;
-  ATOM) sed -i -e 's/# CONFIG_MATOM is not set/CONFIG_MATOM=y/' ./.config ;;
-  CORE2) sed -i -e 's/# CONFIG_MCORE2 is not set/CONFIG_MCORE2=y/' ./.config ;;
-  NEHALEM) sed -i -e 's/# CONFIG_MNEHALEM is not set/CONFIG_MNEHALEM=y/' ./.config ;;
-  WESTMERE) sed -i -e 's/# CONFIG_MWESTMERE is not set/CONFIG_MWESTMERE=y/' ./.config ;;
-  SANDYBRIDGE) sed -i -e 's/# CONFIG_MSANDYBRIDGE is not set/CONFIG_MSANDYBRIDGE=y/' ./.config ;;
-  IVYBRIDGE) sed -i -e 's/# CONFIG_MIVYBRIDGE is not set/CONFIG_MIVYBRIDGE=y/' ./.config ;;
-  HASWELL) sed -i -e 's/# CONFIG_MHASWELL is not set/CONFIG_MHASWELL=y/' ./.config ;;
-  BROADWELL) sed -i -e 's/# CONFIG_MBROADWELL is not set/CONFIG_MBROADWELL=y/' ./.config ;;
-  SKYLAKE) sed -i -e 's/# CONFIG_MSKYLAKE is not set/CONFIG_MSKYLAKE=y/' ./.config ;;
+  ATOM|atom) sed -i -e 's/# CONFIG_MATOM is not set/CONFIG_MATOM=y/' ./.config ;;
+  CORE2|core2) sed -i -e 's/# CONFIG_MCORE2 is not set/CONFIG_MCORE2=y/' ./.config ;;
+  NEHALEM|nehalem) sed -i -e 's/# CONFIG_MNEHALEM is not set/CONFIG_MNEHALEM=y/' ./.config ;;
+  WESTMERE|westmere) sed -i -e 's/# CONFIG_MWESTMERE is not set/CONFIG_MWESTMERE=y/' ./.config ;;
+  SANDYBRIDGE|sandybridge) sed -i -e 's/# CONFIG_MSANDYBRIDGE is not set/CONFIG_MSANDYBRIDGE=y/' ./.config ;;
+  IVYBRIDGE|ivybridge) sed -i -e 's/# CONFIG_MIVYBRIDGE is not set/CONFIG_MIVYBRIDGE=y/' ./.config ;;
+  HASWELL|haswell) sed -i -e 's/# CONFIG_MHASWELL is not set/CONFIG_MHASWELL=y/' ./.config ;;
+  BROADWELL|broadwell) sed -i -e 's/# CONFIG_MBROADWELL is not set/CONFIG_MBROADWELL=y/' ./.config ;;
+  SKYLAKE|skylake) sed -i -e 's/# CONFIG_MSKYLAKE is not set/CONFIG_MSKYLAKE=y/' ./.config ;;
   *) echo "Correct your typo in variable." && exit 1 ;;
   esac
 
