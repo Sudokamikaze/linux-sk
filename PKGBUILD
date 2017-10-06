@@ -1,43 +1,10 @@
-###########################################################################################################
-#                                         Build Options
-###########################################################################################################
+# Original authors of linux-zen pkgbuild and contributors
+# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Contributor: Tobias Powalowski <tpowa@archlinux.org>
+# Contributor: Thomas Baechler <thomas@archlinux.org>
 
-use_optimization="yes"
-# "yes": Use native gcc optimizations
-# "no": Disable any optimization
-# or define your cpu family in _use_optimization. Supported codenames listed bellow
-# "ATOM"
-# "CORE2"
-# "NEHALEM"
-# "WESTMERE"
-# "SILVERMONT"
-# "SANDYBRIDGE"
-# "IVYBRIDGE"
-# "HASWELL"
-# "BROADWELL"
-# "SKYLAKE"
-# If you have AMD cpu - just define "yes"
-
-use_modprobed="no"
-# "yes" Use modprobed-db to load modules
-
-use_customtc="no"
-# "yes" Enable variable below
-
-pathto=""
-# Write path to your compiled toolchan, please, write like in this example
-# example: "/home/haze/x-tools/x86_64-pc-linux-gnu/bin/x86_64-pc-linux-gnu-" 
-
-use_reiser="no"
-# Currently not implemented
-
-disable_numa="yes"
-# If your pc have more then 1 CPU(not thread or core) define here "no"
-
-hard_optimization="yes"
-# Maybe unstable, define "no" if you had any problems with it
-
-###########################################################################################################
+# linux-sk authors & contibutors
+# Maintainer: Sudokamikaze <keybase.io/sudokamikaze>
 
 pkgbase=linux-sk
 _srcname=linux-4.13
@@ -61,7 +28,8 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
         '90-linux.hook'
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
-        "reiser4-for-4.13.0.patch")
+        "reiser4-for-4.13.0.patch"
+        "sk.config")
 
 sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             'SKIP'
@@ -73,7 +41,8 @@ sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             '0753dd0b93b05f2163b6e0117df6ab7b8567931aba36b265fe76bf3b31e44b23'
             '834bd254b56ab71d73f59b3221f056c72f559553c04718e350ab2a3e2991afe0'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            'c24f369bb10198f11aefeca75fabafbb8f17ba460d842d6ff832fd846da9e58e')
+            'c24f369bb10198f11aefeca75fabafbb8f17ba460d842d6ff832fd846da9e58e'
+            'SKIP')
 
 _kernelname=${pkgbase#linux}
 
@@ -93,9 +62,30 @@ prepare() {
 
   cp -Tf ../config.x86_64 .config
 
+  # Detect our config
+  if [ -f ../sk.config ]; then
+  eval $(grep cpu_optimization= ../sk.config)
+  eval $(grep use_modprobed= ../sk.config)
+  eval $(grep tc_path= ../sk.config)
+  eval $(grep use_reiser= ../sk.config)
+  eval $(grep disable_numa= ../sk.config)
+  eval $(grep hard_optimization= ../sk.config)
+  else
+  echo " "
+  echo "sk.config not found! "
+  echo "Check our github page to download or create by yourself"
+  echo "Or you can proceed without it"
+  echo -n "Do you want to proceed?[Y/N]: "
+  read config_sk
+  case "$config_sk" in
+  y|Y) cpu_optimization=yes ;;
+  n|N) exit 1 ;;
+  esac
+  fi
+
   # Our tweaks begin here
 
-  case "$use_optimization" in
+  case "$cpu_optimization" in
   yes) sed -i -e 's/# CONFIG_MNATIVE is not set/CONFIG_MNATIVE=y/' ./.config ;;
   no) sed -i -e 's/# CONFIG_GENERIC_CPU is not set/CONFIG_GENERIC_CPU=y/' ./.config ;;
   ATOM) sed -i -e 's/# CONFIG_MATOM is not set/CONFIG_MATOM=y/' ./.config ;;
@@ -167,9 +157,9 @@ fi
 build() {
   cd ${_srcname}
  
-  if [ "$use_customtc" == "yes" ]; then
-  export CROSS_COMPILE="$pathto"
-  fi
+  case "$tc_path" in
+  "/"*) export CROSS_COMPILE="$tc_path" ;;
+  esac
 
   make ${MAKEFLAGS} LOCALVERSION= bzImage modules
 }
