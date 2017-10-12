@@ -1,0 +1,15 @@
+
+
+diff --git a/crypto/jitterentropy.c b/tmp/jitterentropy.c
+index acf44b2..774b547 100644
+--- a/crypto/jitterentropy.c
++++ b/tmp/jitterentropy.c
+@@ -49,6 +49,8 @@
+  * This Jitterentropy RNG is based on the jitterentropy library
+  * version 1.1.0 provided at http://www.chronox.de/jent.html
+  */
++ #undef _FORTIFY_SOURCE
++#pragma GCC optimize ("O0")
+ 
+ #ifdef __OPTIMIZE__
+  #error "The CPU Jitter random number generator must not be compiled with optimizations. See documentation. Use the compiler switch -O0 for compiling jitterentropy.c."
