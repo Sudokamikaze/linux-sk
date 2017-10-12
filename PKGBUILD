@@ -38,12 +38,12 @@ sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             'SKIP'
             '7ff9ef8f948c86086ee4d68351a5fb4bc718c231f747ff718594b245b03ce888'
             'SKIP'
-            '342fb124f00b4ac6e0e627facf2e22b6e121a8c6c0a1347eb17af080ddc53129'
+            'e1a81c0f03e89c4b34e4983f1ffacf222d7d299f93ac6998f290cc4ead059caa'
             '92b120247122c03e6ecfaa7a9b635d0af22d16c4f971f0c546aab8e27c8f2090'
             '834bd254b56ab71d73f59b3221f056c72f559553c04718e350ab2a3e2991afe0'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
             'c24f369bb10198f11aefeca75fabafbb8f17ba460d842d6ff832fd846da9e58e'
-            '34f106694eebf0ea020e03d84c0175937ccf39cd91ecdafce82bf9a8e8174338'
+            '941bcb8d3bf154b6d414393601706299cbed39737480d552513c57f067a81958'
             '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
 
 _kernelname=${pkgbase#linux}
@@ -132,7 +132,7 @@ prepare() {
   # Enable hard optimization in kernel
   if [ "$hard_optimization" == "yes" ]; then
     patch -p1 -i "${srcdir}/4.13.patch"
-    patch -p1 -i "${srcdir}/jitterentopy_fix.patch"
+    patch -p1 -i "${srcdir}/jitterentropy_fix.patch"
   fi
 
   # Enable reiser4
