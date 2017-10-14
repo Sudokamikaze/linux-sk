@@ -22,6 +22,15 @@ Our features
 * Disabled some unneeded debugging 
 * Have native & easy support for custom toolchains
 
+Our toolchain
+=======
+
+For now, we have few prebuilded toolchains for IVYBRIDGE/SANDYBRIDGE/HASWELL target
+
+If you want to compile kernel with our toolchain use this [repo](https://github.com/QUVNTNM-TC/DESKTOP-TC)
+
+If you want to support your cpu and publish your builded toolchain at our official repo. Just email me to my telegram. I'll give you a config for toolchain building
+
 Our patches
 ========
 
