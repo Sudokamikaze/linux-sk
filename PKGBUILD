@@ -8,8 +8,8 @@
 
 pkgbase=linux-sk
 _srcname=linux-4.13
-_zenpatch=zen-4.13.6-7ba34a83b1c5ec414fe82c9a321e15b1ddb63f98.diff
-pkgver=4.13.6
+_zenpatch=zen-4.13.7-151196789cbc08a6737cd52dc37b43bb511518e2.diff
+pkgver=4.13.7
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -34,16 +34,16 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
 
 sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             'SKIP'
-            '12d897b7f547c7d03a81be690b3dc0e0e5b9becfbd63e3dbf9f7258db861ddfb'
+            '0fe89c96e956efbded576214eef0c8e43cabe41dfca245e3ebb79fff9bc8715d'
             'SKIP'
-            '7ff9ef8f948c86086ee4d68351a5fb4bc718c231f747ff718594b245b03ce888'
+            'a1ed491ab9a2b25ef045b32453fd3188868cebfa16a28279eebecc45feb4a8af'
             'SKIP'
             'e1a81c0f03e89c4b34e4983f1ffacf222d7d299f93ac6998f290cc4ead059caa'
             '92b120247122c03e6ecfaa7a9b635d0af22d16c4f971f0c546aab8e27c8f2090'
             '834bd254b56ab71d73f59b3221f056c72f559553c04718e350ab2a3e2991afe0'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
             'c24f369bb10198f11aefeca75fabafbb8f17ba460d842d6ff832fd846da9e58e'
-            '941bcb8d3bf154b6d414393601706299cbed39737480d552513c57f067a81958'
+            '1f280c1b3a80daf8ee56cfa2a5b24ac92ed6002e5f1890458914c92d5d925640'
             '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
 
 _kernelname=${pkgbase#linux}
