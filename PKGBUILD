@@ -8,8 +8,8 @@
 
 pkgbase=linux-sk
 _srcname=linux-4.13
-_zenpatch=zen-4.13.7-151196789cbc08a6737cd52dc37b43bb511518e2.diff
-pkgver=4.13.7
+_zenpatch=zen-4.13.8-fd9846c534b4f8771f3326423ff25f4275601a27.diff
+pkgver=4.13.8
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -34,9 +34,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
 
 sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             'SKIP'
-            '0fe89c96e956efbded576214eef0c8e43cabe41dfca245e3ebb79fff9bc8715d'
+            '3b2bcceb16acd75322e98d3e93967e82bd0e7499c748bf12bd46c7519dacc315'
             'SKIP'
-            'a1ed491ab9a2b25ef045b32453fd3188868cebfa16a28279eebecc45feb4a8af'
+            '8df1c85456efc18ca2657a1e1e517a88704de33c03ab1925b3711df3e5268181'
             'SKIP'
             'e1a81c0f03e89c4b34e4983f1ffacf222d7d299f93ac6998f290cc4ead059caa'
             '92b120247122c03e6ecfaa7a9b635d0af22d16c4f971f0c546aab8e27c8f2090'

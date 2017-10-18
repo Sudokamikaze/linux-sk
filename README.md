@@ -6,7 +6,7 @@ linux-sk
 
  My performance [patch](https://github.com/Sudokamikaze/makefile_patchset) source in my repositories.
 
-* Current -ZEN sources version: 4.13.7
+* Current -ZEN sources version: 4.13.8
 
 Our features
 ========
