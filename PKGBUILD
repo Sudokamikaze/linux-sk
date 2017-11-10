@@ -8,8 +8,8 @@
 
 pkgbase=linux-sk
 _srcname=linux-4.13
-_zenpatch=zen-4.13.11-babe7eeee5a0c8ae95841a8d5ca187400a07997f.diff
-pkgver=4.13.11
+_zenpatch=zen-4.13.12-b746cb2e9e35638f753f0bc381918ba4278236f5.diff
+pkgver=4.13.12
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -34,9 +34,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
 
 sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
             'SKIP'
-            'f5fb017ee531dc35e3462ccb2d244d4fdc8ac6df9cd3337aa6df2ffc280b1bd6'
+            'd5830f31cf8522986fb530e69b3b9b023f0298c4f88d897541ff0776dc805828'
             'SKIP'
-            'dadebe9d9f0a22f766158e90cc3ec2f867f4d51f12b326f7ade5ff000b531cd5'
+            'af452a215d187478300388693a6c03a1a8157090da6ed7d9d6c121114cf74b43'
             'SKIP'
             'e1a81c0f03e89c4b34e4983f1ffacf222d7d299f93ac6998f290cc4ead059caa'
             '32cd99e72458e8aa96fa0ac816db7ef0342a74108967c120a55913fcf74f8a80'
@@ -90,7 +90,7 @@ prepare() {
   if [ "$cpu_optimization" == "auto" ]; then
   autovar=$(gcc -march=native -Q --help=target| grep march | awk {'print $2'})
   echo " "
-  echo "CPU name autodetection detect this name: $autovar" 
+  echo "CPU name autodetection detect this name: $autovar"
   echo -n "Does it detected correctly?[Y/N]: "
   read autodetect
   case "$autodetect" in
@@ -155,7 +155,7 @@ prepare() {
   make prepare
 
 if [ "$use_modprobed" == "yes" ]; then
-  make LSMOD=$HOME/.config/modprobed.db localmodconfig  
+  make LSMOD=$HOME/.config/modprobed.db localmodconfig
 fi
 
   # load configuration
@@ -172,7 +172,7 @@ fi
 
 build() {
   cd ${_srcname}
- 
+
   case "$tc_path" in
   "/"*) export CROSS_COMPILE="$tc_path" ;;
   esac
