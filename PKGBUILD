@@ -9,6 +9,7 @@
 pkgbase=linux-sk
 _srcname=linux-4.14
 _zenpatch=zen-4.14.1-e52c6d3e72a8e2957fd7b44c96628c1a14ac0622.diff
+_skpatch=4.14.patch
 pkgver=4.14.1
 pkgrel=2
 arch=('x86_64')
@@ -23,7 +24,7 @@ source=(
   "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.sign"
   "https://pkgbuild.com/~heftig/zen-patches/${_zenpatch}.xz"
   "https://pkgbuild.com/~heftig/zen-patches/${_zenpatch}.sign"
-  "https://raw.githubusercontent.com/Sudokamikaze/makefile_patchset/master/4.14.patch"
+  "https://raw.githubusercontent.com/Sudokamikaze/makefile_patchset/master/${_skpatch}"
   'config'         # the main kernel config file
   '60-linux.hook'  # pacman hook for depmod
   '90-linux.hook'  # pacman hook for initramfs regeneration
@@ -129,7 +130,7 @@ prepare() {
 
   # Enable hard optimization in kernel
   if [ "$hard_optimization" == "yes" ]; then
-    patch -p1 -i "${srcdir}/4.13.patch"
+    patch -p1 -i "${srcdir}/${_skpatch}"
     patch -p1 -i "${srcdir}/jitterentropy_fix.patch"
   fi
 
