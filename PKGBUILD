@@ -4,45 +4,49 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 # linux-sk authors & contibutors
-# Maintainer: Sudokamikaze <keybase.io/sudokamikaze>
+# Maintainer: Sudokamikaze <keybase.io/sudokamikaze> <pulshencode@outlook.com>
 
 pkgbase=linux-sk
-_srcname=linux-4.13
-_zenpatch=zen-4.13.12-b746cb2e9e35638f753f0bc381918ba4278236f5.diff
-pkgver=4.13.12
-pkgrel=1
+_srcname=linux-4.14
+_zenpatch=zen-4.14.1-e52c6d3e72a8e2957fd7b44c96628c1a14ac0622.diff
+pkgver=4.14.1
+pkgrel=2
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
 license=('GPL2')
 makedepends=('xmlto' 'kmod' 'inetutils' 'bc' 'libelf')
 options=('!strip')
-source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.sign"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.sign"
-        "https://pkgbuild.com/~heftig/zen-patches/${_zenpatch}.xz"
-        "https://pkgbuild.com/~heftig/zen-patches/${_zenpatch}.sign"
-        "https://raw.githubusercontent.com/Sudokamikaze/makefile_patchset/master/4.13.patch"
-        'config.x86_64'
-        # pacman hook for initramfs regeneration
-        '90-linux.hook'
-        # standard config files for mkinitcpio ramdisk
-        'linux.preset'
-        "reiser4-for-4.13.0.patch"
-        "sk.config"
-        "jitterentropy_fix.patch")
-
-sha256sums=('2db3d6066c3ad93eb25b973a3d2951e022a7e975ee2fa7cbe5bddf84d9a49a2c'
+source=(
+  "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
+  "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.sign"
+  "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
+  "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.sign"
+  "https://pkgbuild.com/~heftig/zen-patches/${_zenpatch}.xz"
+  "https://pkgbuild.com/~heftig/zen-patches/${_zenpatch}.sign"
+  "https://raw.githubusercontent.com/Sudokamikaze/makefile_patchset/master/4.14.patch"
+  'config'         # the main kernel config file
+  '60-linux.hook'  # pacman hook for depmod
+  '90-linux.hook'  # pacman hook for initramfs regeneration
+  'linux.preset'   # standard config files for mkinitcpio ramdisk
+  'sk.config'      # Linux-sk
+  'jitterentropy_fix.patch' # Small fix for JITTER_ENTOPY
+)
+validpgpkeys=(
+  'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
+  '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
+  '8218F88849AAC522E94CF470A5E9288C4FA415FA'  # Jan Alexander Steffens (heftig)
+)
+sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
             'SKIP'
-            'd5830f31cf8522986fb530e69b3b9b023f0298c4f88d897541ff0776dc805828'
+            '5af72b487fbcc8e7fd3f5392271490c8498ffb2048e77abaf406971a7382f8d7'
             'SKIP'
-            'af452a215d187478300388693a6c03a1a8157090da6ed7d9d6c121114cf74b43'
+            'c683eb53d11391018cf9f00227ed733bb311e6af132e68a5b0c450f60858c155'
             'SKIP'
-            'e1a81c0f03e89c4b34e4983f1ffacf222d7d299f93ac6998f290cc4ead059caa'
-            '32cd99e72458e8aa96fa0ac816db7ef0342a74108967c120a55913fcf74f8a80'
-            '834bd254b56ab71d73f59b3221f056c72f559553c04718e350ab2a3e2991afe0'
+            '44461cae3069fb1391e21f4060d5df8f37bacdb49dc582d8e0b98e42c944ca39'
+            '0a7dd37bc8198195feed5c877f82e70e30d5e8ffc4265a091685ca8646437aa7'
+            'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
+            '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            'c24f369bb10198f11aefeca75fabafbb8f17ba460d842d6ff832fd846da9e58e'
             'SKIP'
             '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
 
@@ -62,7 +66,7 @@ prepare() {
   # add zen patch
   patch -p1 -i ../${_zenpatch}
 
-  cp -Tf ../config.x86_64 .config
+  cp -Tf ../config .config
 
   # Detect our config
   if [ -f ../sk.config ]; then
@@ -136,9 +140,9 @@ prepare() {
   fi
 
   # Enable reiser4
-  if [ "$use_reiser" == "yes" ]; then
-  patch -p1 -i "${srcdir}/reiser4-for-4.13.0.patch"
-  fi
+#  if [ "$use_reiser" == "yes" ]; then
+  # patch -p1 -i "${srcdir}/reiser4-for-4.13.0.patch"
+#  fi
 
   if [ "${_kernelname}" != "" ]; then
     sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
@@ -154,9 +158,9 @@ prepare() {
   # get kernel version
   make prepare
 
-if [ "$use_modprobed" == "yes" ]; then
-  make LSMOD=$HOME/.config/modprobed.db localmodconfig
-fi
+  if [ "$use_modprobed" == "yes" ]; then
+    make LSMOD=$HOME/.config/modprobed.db localmodconfig
+  fi
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
@@ -190,51 +194,52 @@ _package() {
 
   cd ${_srcname}
 
-  KARCH=x86
-
   # get kernel version
   _kernver="$(make LOCALVERSION= kernelrelease)"
   _basekernel=${_kernver%%-*}
   _basekernel=${_basekernel%.*}
 
-  mkdir -p "${pkgdir}"/{lib/modules,lib/firmware,boot}
-  make LOCALVERSION= INSTALL_MOD_PATH="${pkgdir}" modules_install
-  cp arch/$KARCH/boot/bzImage "${pkgdir}/boot/vmlinuz-${pkgbase}"
-
-  # set correct depmod command for install
-  sed -e "s|%PKGBASE%|${pkgbase}|g;s|%KERNVER%|${_kernver}|g" \
-    "${startdir}/${install}" > "${startdir}/${install}.pkg"
-  true && install=${install}.pkg
-
-  # install mkinitcpio preset file for kernel
-  sed "s|%PKGBASE%|${pkgbase}|g" ../linux.preset |
-    install -Dm644 /dev/stdin "${pkgdir}/etc/mkinitcpio.d/${pkgbase}.preset"
-
-  # install pacman hook for initramfs regeneration
-  sed "s|%PKGBASE%|${pkgbase}|g" ../90-linux.hook |
-    install -Dm644 /dev/stdin "${pkgdir}/usr/share/libalpm/hooks/90-${pkgbase}.hook"
-
-  # remove build and source links
-  rm "${pkgdir}"/lib/modules/${_kernver}/{source,build}
-
-  # remove the firmware
-  rm -r "${pkgdir}/lib/firmware"
+  mkdir -p "${pkgdir}"/{boot,usr/lib/modules}
+  make LOCALVERSION= INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
+  cp arch/x86/boot/bzImage "${pkgdir}/boot/vmlinuz-${pkgbase}"
 
   # make room for external modules
-  ln -s "../extramodules-${_basekernel}${_kernelname:--ARCH}" "${pkgdir}/lib/modules/${_kernver}/extramodules"
+  local _extramodules="extramodules-${_basekernel}${_kernelname:--ARCH}"
+  ln -s "../${_extramodules}" "${pkgdir}/usr/lib/modules/${_kernver}/extramodules"
 
-  # add real version for building modules and running depmod from post_install/upgrade
+  # add real version for building modules and running depmod from hook
   echo "${_kernver}" |
-    install -Dm644 /dev/stdin "${pkgdir}/lib/modules/extramodules-${_basekernel}${_kernelname:--ARCH}/version"
+    install -Dm644 /dev/stdin "${pkgdir}/usr/lib/modules/${_extramodules}/version"
 
-  # Now we call depmod...
-  depmod -b "${pkgdir}" -F System.map "${_kernver}"
+  # remove build and source links
+  rm "${pkgdir}"/usr/lib/modules/${_kernver}/{source,build}
 
-  # move module tree /lib -> /usr/lib
-  mv -t "${pkgdir}/usr" "${pkgdir}/lib"
+  # now we call depmod...
+  depmod -b "${pkgdir}/usr" -F System.map "${_kernver}"
 
   # add vmlinux
-  install -Dm644 vmlinux "${pkgdir}/usr/lib/modules/${_kernver}/build/vmlinux"
+  install -Dt "${pkgdir}/usr/lib/modules/${_kernver}/build" -m644 vmlinux
+
+  # sed expression for following substitutions
+  local _subst="
+    s|%PKGBASE%|${pkgbase}|g
+    s|%KERNVER%|${_kernver}|g
+    s|%EXTRAMODULES%|${_extramodules}|g
+  "
+
+  # hack to allow specifying an initially nonexisting install file
+  sed "${_subst}" "${startdir}/${install}" > "${startdir}/${install}.pkg"
+  true && install=${install}.pkg
+
+  # install mkinitcpio preset file
+  sed "${_subst}" ../linux.preset |
+    install -Dm644 /dev/stdin "${pkgdir}/etc/mkinitcpio.d/${pkgbase}.preset"
+
+  # install pacman hooks
+  sed "${_subst}" ../60-linux.hook |
+    install -Dm644 /dev/stdin "${pkgdir}/usr/share/libalpm/hooks/60-${pkgbase}.hook"
+  sed "${_subst}" ../90-linux.hook |
+    install -Dm644 /dev/stdin "${pkgdir}/usr/share/libalpm/hooks/90-${pkgbase}.hook"
 }
 
 _package-headers() {
@@ -250,14 +255,10 @@ _package-headers() {
 
   cp -t "${_builddir}" -a include scripts
 
-  install -Dt "${_builddir}/arch/${KARCH}" -m644 arch/${KARCH}/Makefile
-  install -Dt "${_builddir}/arch/${KARCH}/kernel" -m644 arch/${KARCH}/kernel/asm-offsets.s
+  install -Dt "${_builddir}/arch/x86" -m644 arch/x86/Makefile
+  install -Dt "${_builddir}/arch/x86/kernel" -m644 arch/x86/kernel/asm-offsets.s
 
-  if [[ ${CARCH} = i686 ]]; then
-    install -t "${_builddir}/arch/${KARCH}" -m644 arch/${KARCH}/Makefile_32.cpu
-  fi
-
-  cp -t "${_builddir}/arch/${KARCH}" -a arch/${KARCH}/include
+  cp -t "${_builddir}/arch/x86" -a arch/x86/include
 
   install -Dt "${_builddir}/drivers/md" -m644 drivers/md/*.h
   install -Dt "${_builddir}/net/mac80211" -m644 net/mac80211/*.h
@@ -266,7 +267,6 @@ _package-headers() {
   install -Dt "${_builddir}/drivers/media/dvb-core" -m644 drivers/media/dvb-core/*.h
 
   # http://bugs.archlinux.org/task/13146
-  install -Dt "${_builddir}/drivers/media/dvb-frontends" -m644 drivers/media/dvb-frontends/lgdt330x.h
   install -Dt "${_builddir}/drivers/media/i2c" -m644 drivers/media/i2c/msp3400-driver.h
 
   # http://bugs.archlinux.org/task/20402
@@ -281,16 +281,13 @@ _package-headers() {
   find . -name Kconfig\* -exec install -Dm644 {} "${_builddir}/{}" \;
 
   # add objtool for external module building and enabled VALIDATION_STACK option
-  if [[ -e tools/objtool/objtool ]]; then
-    install -Dt "${_builddir}/tools/objtool" tools/objtool/objtool
-  fi
+  install -Dt "${_builddir}/tools/objtool" tools/objtool/objtool
 
   # remove unneeded architectures
   local _arch
   for _arch in "${_builddir}"/arch/*/; do
-    if [[ ${_arch} != */${KARCH}/ ]]; then
-      rm -r "${_arch}"
-    fi
+    [[ ${_arch} == */x86/ ]] && continue
+    rm -r "${_arch}"
   done
 
   # remove files already in linux-docs package
