@@ -104,20 +104,14 @@ prepare() {
   esac
   fi
 
-  case "$cpu_optimization" in
-  yes) sed -i -e 's/# CONFIG_MNATIVE is not set/CONFIG_MNATIVE=y/' ./.config ;;
-  no) sed -i -e 's/# CONFIG_GENERIC_CPU is not set/CONFIG_GENERIC_CPU=y/' ./.config ;;
-  ATOM|atom) sed -i -e 's/# CONFIG_MATOM is not set/CONFIG_MATOM=y/' ./.config ;;
-  CORE2|core2) sed -i -e 's/# CONFIG_MCORE2 is not set/CONFIG_MCORE2=y/' ./.config ;;
-  NEHALEM|nehalem) sed -i -e 's/# CONFIG_MNEHALEM is not set/CONFIG_MNEHALEM=y/' ./.config ;;
-  WESTMERE|westmere) sed -i -e 's/# CONFIG_MWESTMERE is not set/CONFIG_MWESTMERE=y/' ./.config ;;
-  SANDYBRIDGE|sandybridge) sed -i -e 's/# CONFIG_MSANDYBRIDGE is not set/CONFIG_MSANDYBRIDGE=y/' ./.config ;;
-  IVYBRIDGE|ivybridge) sed -i -e 's/# CONFIG_MIVYBRIDGE is not set/CONFIG_MIVYBRIDGE=y/' ./.config ;;
-  HASWELL|haswell) sed -i -e 's/# CONFIG_MHASWELL is not set/CONFIG_MHASWELL=y/' ./.config ;;
-  BROADWELL|broadwell) sed -i -e 's/# CONFIG_MBROADWELL is not set/CONFIG_MBROADWELL=y/' ./.config ;;
-  SKYLAKE|skylake) sed -i -e 's/# CONFIG_MSKYLAKE is not set/CONFIG_MSKYLAKE=y/' ./.config ;;
-  *) echo "Correct your typo in variable." && exit 1 ;;
-  esac
+  if [ $cpu_optimization == "Enabled" ]; then
+    case $(cat /proc/cpuinfo | grep "vendor_id" | uniq | awk {'print $3'}) in
+      "GenuineIntel") magic=$(gcc -march=native -Q --help=target| grep march | awk {'print $2'} | awk '{print toupper($0)}' | awk '{print "M"$0}')
+      sed -i -e "s|\# CONFIG_$magic is not set|CONFIG_$magic=y|" ./.config
+      ;;
+      "AuthenticAMD") sed -i -e 's/# CONFIG_MNATIVE is not set/CONFIG_MNATIVE=y/' ./.config ;;
+    esac
+  fi
 
   # disable NUMA since 99.9% of users do not have multiple CPUs but do have multiple cores in one CPU
   # see, https://bugs.archlinux.org/task/31187
