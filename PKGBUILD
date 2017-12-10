@@ -9,8 +9,8 @@
 pkgbase=linux-sk
 _srcname=linux-4.14
 _skpatch=4.14.patch
-_zenpatch=zen-4.14.4-b3c077ce9d61253b8653a2b7d847b90b61797231.diff
-pkgver=4.14.4
+_zenpatch=zen-4.14.5-ba3fd1dbed4800d0d2646b4cd296eb555266a964.diff
+pkgver=4.14.5
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -39,16 +39,16 @@ validpgpkeys=(
 )
 sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
             'SKIP'
-            'e9dcf9aad5977289940cd6e3762af02b87a725ba6c1a9f4af86958dc621e3a84'
+            'd86eb2fd1c424fec9fbb12afacf7b783756651f5d7d0cf7ac71c3fbbbedddc9c'
             'SKIP'
-            'fbbe3187c3fff654d71bdf3c3c4f4b5e727b3757fda3d69771715ff76f95b486'
+            '622fa84896661c064b660b77da03f90b88257e86ea53eeade4949ffbaddbcc49'
             'SKIP'
             '44461cae3069fb1391e21f4060d5df8f37bacdb49dc582d8e0b98e42c944ca39'
-            '3a79280bde10910d9cdf101209c1e1875b1c27dcf1ea9b4bf53a06a6d7d46d38'
+            'ef0df2919ecd950421ebdf913858eeb3bdcb72f05d490a1b5f4b67747d7c156f'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            'SKIP'
+            'a34626202e0335136136d6bdf7ec538b7aa36a17ba3af226ea810bf170259755'
             '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
 
 _kernelname=${pkgbase#linux}
