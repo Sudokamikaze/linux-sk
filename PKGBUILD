@@ -92,19 +92,6 @@ prepare() {
 
   # Our tweaks begin here
 
-  if [ "$cpu_optimization" == "auto" ]; then
-  autovar=$(gcc -march=native -Q --help=target| grep march | awk {'print $2'})
-  echo " "
-  echo "CPU name autodetection detect this name: $autovar"
-  echo -n "Does it detected correctly?[Y/N]: "
-  read autodetect
-  case "$autodetect" in
-  y|Y) unset cpu_optimization
-  cpu_optimization=$autovar ;;
-  n|N) exit 1;;
-  esac
-  fi
-
   if [ $cpu_optimization == "Enabled" ]; then
     case $(cat /proc/cpuinfo | grep "vendor_id" | uniq | awk {'print $3'}) in
       "GenuineIntel") magic=$(gcc -march=native -Q --help=target| grep march | awk {'print $2'} | awk '{print toupper($0)}' | awk '{print "M"$0}')
