@@ -9,8 +9,8 @@
 pkgbase=linux-sk
 _srcname=linux-4.14
 _skpatch=4.14.patch
-_zenpatch=zen-4.14.7-7d1aea1343a1e06076276fd1717a70091f270dbf.diff
-pkgver=4.14.7
+_zenpatch=zen-4.14.8-1a3f4eedebb2201209a8730fcc2c60763511fa11.diff
+pkgver=4.14.8
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -39,9 +39,9 @@ validpgpkeys=(
 )
 sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
             'SKIP'
-            '5c286695439b4a1a2c7a112cf41aae0441b03ef41dfe83a0d61161c16dc265f5'
+            '42eaed731b716244514b765c199e8f675d79287d7630e5c2911053ad52a1fa0a'
             'SKIP'
-            '3c064716f45209e878d906e0a351d7aecfc5e04e6a3f9c1922116c31d2b28bb5'
+            '8899318140aaffccfd65fb1bf48286028cc6e482e5ed19510b7ded09d5e735fe'
             'SKIP'
             '1041a1c2793cd23aed79cc4d298d0d5ecdcd4126aa4c4a7b577f41332d42b65c'
             '9cc9f4595a6ff6ca64c508bce982852660b753861a2830294a26c31a3566decf'
