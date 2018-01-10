@@ -9,8 +9,8 @@
 pkgbase=linux-sk
 _srcname=linux-4.14
 _skpatch=4.14.patch
-_zenpatch=zen-4.14.12-21556479f0d6488e6860c0c704b57e5d98f519ec.diff
-pkgver=4.14.12
+_zenpatch=zen-4.14.13-6f9090f5dcc8058d589f1e2e51667a1e8a8cff36.diff
+pkgver=4.14.13
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -39,9 +39,9 @@ validpgpkeys=(
 )
 sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
             'SKIP'
-            'da5d8db44b0988e4c45346899d3f5a51f8bd6c25f14e729615ca9ff9f17bdefd'
+            'ce897f467e80452f29d7a7a8809e8585ea12192a2c32e4d18578f64b043e802e'
             'SKIP'
-            '2a52619213eb7413d75ef869fe93f049f88d477a14d23a072781fc186c48b971'
+            'd06732a400651441d322963416bc5491b568f98dd5bfd296f4a662809b904f9c'
             'SKIP'
             '09ba1457837a6e69f5c3fd2156ad72e662319aa0dd4f51c203e401b1fabb4c40'
             'e48bdd4df850e80ea3532a96974314a4835fa3b2d6f203814a74f15712a4c538'
@@ -275,6 +275,9 @@ _package-headers() {
 
   # remove files already in linux-docs package
   rm -r "${_builddir}/Documentation"
+
+  # remove now broken symlinks
+  find -L "${_builddir}" -type l -printf 'Removing %P\n' -delete
 
   # Fix permissions
   chmod -R u=rwX,go=rX "${_builddir}"
