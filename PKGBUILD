@@ -9,7 +9,7 @@
 pkgbase=linux-sk
 _srcname=linux-4.14
 _skpatch=4.14.patch
-_zenpatch=zen-4.14.13-6f9090f5dcc8058d589f1e2e51667a1e8a8cff36.diff
+_zenpatch=zen-4.14.13-594de9e2bba32786baf37c6dc5df1469e55c9175.diff
 pkgver=4.14.13
 pkgrel=1
 arch=('x86_64')
@@ -41,7 +41,7 @@ sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
             'SKIP'
             'ce897f467e80452f29d7a7a8809e8585ea12192a2c32e4d18578f64b043e802e'
             'SKIP'
-            'd06732a400651441d322963416bc5491b568f98dd5bfd296f4a662809b904f9c'
+            '044be9e0fd3deca8961719fffbaa303038a6aa576993593829d5ebb5fe8faf34'
             'SKIP'
             '09ba1457837a6e69f5c3fd2156ad72e662319aa0dd4f51c203e401b1fabb4c40'
             'e48bdd4df850e80ea3532a96974314a4835fa3b2d6f203814a74f15712a4c538'
