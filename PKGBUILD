@@ -31,6 +31,7 @@ source=(
   'linux.preset'   # standard config files for mkinitcpio ramdisk
   'sk.config'      # Linux-sk
   'jitterentropy_fix.patch' # Small fix for JITTER_ENTOPY
+  'muqss_fix.patch'
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -49,7 +50,8 @@ sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
             'SKIP'
-            '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
+            '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89'
+            'SKIP')
 
 _kernelname=${pkgbase#linux}
 
@@ -69,6 +71,8 @@ prepare() {
   patch -p1 -i ../${_zenpatch}
 
   cp -Tf ../config .config
+
+  patch -p1 -i "${srcdir}/muqss_fix.patch"
 
   # Detect our config
   if [ -f ../sk.config ]; then

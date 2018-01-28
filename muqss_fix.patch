@@ -1,0 +1,43 @@
+From 2759b038d4d1935a3759b296c18c5d8eca3e4973 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <jan.steffens@gmail.com>
+Date: Wed, 24 Jan 2018 20:23:07 +0100
+Subject: [PATCH] muqss: Fixup after delayacct_blkio_end API change
+
+MuQSS was broken by commit 36ae2e6f5c01, part of v4.14.15.
+
+Fixes #117.
+---
+ kernel/sched/MuQSS.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/sched/MuQSS.c b/kernel/sched/MuQSS.c
+index 06cee920b162c..51965067f6c54 100644
+--- a/kernel/sched/MuQSS.c
++++ b/kernel/sched/MuQSS.c
+@@ -1967,7 +1967,7 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ 	p->state = TASK_WAKING;
+ 
+ 	if (p->in_iowait) {
+-		delayacct_blkio_end();
++		delayacct_blkio_end(p);
+ 		atomic_dec(&task_rq(p)->nr_iowait);
+ 	}
+ 
+@@ -1978,7 +1978,7 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ #else /* CONFIG_SMP */
+ 
+ 	if (p->in_iowait) {
+-		delayacct_blkio_end();
++		delayacct_blkio_end(p);
+ 		atomic_dec(&task_rq(p)->nr_iowait);
+ 	}
+ 
+@@ -2030,7 +2030,7 @@ static void try_to_wake_up_local(struct task_struct *p)
+ 
+ 	if (!task_on_rq_queued(p)) {
+ 		if (p->in_iowait) {
+-			delayacct_blkio_end();
++			delayacct_blkio_end(p);
+ 			atomic_dec(&rq->nr_iowait);
+ 		}
+ 		ttwu_activate(rq, p);
