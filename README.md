@@ -6,7 +6,7 @@ linux-sk - Custom kernel for ArchLinux
 
  My performance [patch](https://github.com/Sudokamikaze/makefile_patchset) source in my repositories.
 
-* Current -ZEN sources version: 4.14.15
+* Current -ZEN sources version: 4.15.1
 
 Table of contents
 -----------------
@@ -23,7 +23,7 @@ Our features
 * Latest ZEN sources
 * Auto re-building modules for our kernel
 * LZ4 Compression. Inspired by @petter3k
-* HZ=250
+* HZ=1000
 * Modprobed-db support
 * Reiser4 support
 * GCC optimized
