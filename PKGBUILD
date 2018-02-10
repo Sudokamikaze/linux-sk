@@ -9,9 +9,9 @@
 pkgbase=linux-sk
 _skpatch=4.15.patch
 _srcname=linux-4.15
-_zenpatch=zen-4.15.1-055cf9dd86d188d8a929228794a7695210231580.diff
-pkgver=4.15.1
-pkgrel=2
+_zenpatch=zen-4.15.2-4ff839d45ea4d78ef29075e10dcf7d3a81dbd723.diff
+pkgver=4.15.2
+pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
 license=('GPL2')
@@ -36,12 +36,12 @@ validpgpkeys=(
 )
 sha256sums=('5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769'
             'SKIP'
-            '202a0a34f221ae335de096c292927d7a7d4bcdbc2dd46d43b8a5f6420f95a0cf'
+            '812499c5d0cc5183606dc9388084df162ca2eb5fa374d8f8b00136fd82825847'
             'SKIP'
-            '4184278fd05b8b1f405591459d7a1dc073589f2dfb15d8fdf7a23c6fad4ff8cd'
+            '579cf8d2ea1cf2245537a42d8526c6e067146e70b8abee18ad555e7e212c77c5'
             'SKIP'
             '09ba1457837a6e69f5c3fd2156ad72e662319aa0dd4f51c203e401b1fabb4c40'
-            '61cc0b0bc242fbd0486c1358bb1f4f3ce510f19a5e30f590763fd08d515192cf'
+            'f56537264e2dc8f9da6c1cdad5cc0fc9173d280e79cad87443e7dabdb9a5904b'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
