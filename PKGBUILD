@@ -9,8 +9,8 @@
 pkgbase=linux-sk
 _skpatch=4.15.patch
 _srcname=linux-4.15
-_zenpatch=zen-4.15.2-4ff839d45ea4d78ef29075e10dcf7d3a81dbd723.diff
-pkgver=4.15.2
+_zenpatch=zen-4.15.3-cc71a302593571d98c91356f1e7d24763c96058e.diff
+pkgver=4.15.3
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -36,9 +36,9 @@ validpgpkeys=(
 )
 sha256sums=('5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769'
             'SKIP'
-            '812499c5d0cc5183606dc9388084df162ca2eb5fa374d8f8b00136fd82825847'
+            '6dd42389603bc6c83d2e6db1d736303e41d26cef479cad926b87711f261c9c35'
             'SKIP'
-            '579cf8d2ea1cf2245537a42d8526c6e067146e70b8abee18ad555e7e212c77c5'
+            'b3ed864919f26d32c823e09f0e9ed3a0f56704532f5f6f08f0a1df146c2220ac'
             'SKIP'
             '09ba1457837a6e69f5c3fd2156ad72e662319aa0dd4f51c203e401b1fabb4c40'
             'f56537264e2dc8f9da6c1cdad5cc0fc9173d280e79cad87443e7dabdb9a5904b'
