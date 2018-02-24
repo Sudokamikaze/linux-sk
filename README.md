@@ -25,7 +25,6 @@ Our features
 * LZ4 Compression. Inspired by @petter3k
 * HZ=1000
 * Modprobed-db support
-* Reiser4 support
 * GCC optimized
 * Heavily optimized
 * NUMA disabled by default(Also you can easily enable back)

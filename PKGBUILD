@@ -73,7 +73,6 @@ END
   eval $(grep cpu_optimization= ../sk.config)
   eval $(grep use_modprobed= ../sk.config)
   eval $(grep tc_path= ../sk.config)
-  eval $(grep use_reiser= ../sk.config)
   eval $(grep disable_numa= ../sk.config)
   eval $(grep hard_optimization= ../sk.config)
   else
@@ -83,7 +82,7 @@ END
   exit 1
   fi
 
-  if [ $cpu_optimization == "Enabled" ]; then
+  if [ $cpu_optimization == "true" ]; then
     case $(cat /proc/cpuinfo | grep "vendor_id" | uniq | awk {'print $3'}) in
       "GenuineIntel") magic=$(gcc -march=native -Q --help=target| grep march | awk {'print $2'} | awk '{print toupper($0)}' | awk '{print "M"$0}')
       sed -i -e "s|\# CONFIG_$magic is not set|CONFIG_$magic=y|" ./.config
@@ -94,7 +93,7 @@ END
 
   # disable NUMA since 99.9% of users do not have multiple CPUs but do have multiple cores in one CPU
   # see, https://bugs.archlinux.org/task/31187
-  if [ "$disable_numa" == "yes" ]; then
+  if [ "$disable_numa" == "true" ]; then
      sed -i -e 's/CONFIG_NUMA=y/# CONFIG_NUMA is not set/' \
       -i -e '/CONFIG_AMD_NUMA=y/d' \
       -i -e '/CONFIG_X86_64_ACPI_NUMA=y/d' \
@@ -107,7 +106,7 @@ END
   fi
 
   # Enable hard optimization in kernel
-  if [ "$hard_optimization" == "yes" ]; then
+  if [ "$hard_optimization" == "true" ]; then
     patch -p1 -i "${srcdir}/${_skpatch}"
     patch -p1 -i "${srcdir}/jitterentropy_fix.patch"
   fi
@@ -123,7 +122,7 @@ END
   # get kernel version
   make prepare
 
-  if [ "$use_modprobed" == "yes" ]; then
+  if [ "$use_modprobed" == "true" ]; then
   make LSMOD=$HOME/.config/modprobed.db localmodconfig
   fi
 
