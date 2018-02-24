@@ -142,6 +142,10 @@ END
 build() {
   cd ${_srcname}
 
+case "$tc_path" in
+  "/"*) export CROSS_COMPILE="$tc_path" ;;
+esac
+
   make bzImage modules
 }
 
