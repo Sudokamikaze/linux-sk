@@ -1,12 +1,11 @@
-linux-sk - Custom kernel for ArchLinux
+linux-sk - ZEN based kernel with additional features which described bellow
 ==========
- Fast and pure, many options, stable as rock. For archlinux, based on -ZEN sources
-
- Also this kernel support modprobed-db feature, [read](https://wiki.archlinux.org/index.php/Modprobed-db) about it on archwiki
+    
+ Kernel support modprobed-db feature, [read](https://wiki.archlinux.org/index.php/Modprobed-db) about it on archwiki
 
  My performance [patch](https://github.com/Sudokamikaze/makefile_patchset) source in my repositories.
 
-* Current -ZEN sources version: 4.15.14
+* Current -ZEN sources version: 4.15.15
 
 Table of contents
 -----------------
@@ -26,8 +25,8 @@ Our features
 * HZ=1000
 * Modprobed-db support
 * GCC optimized
-* Heavily optimized
-* NUMA disabled by default(Also you can easily enable back)
+* Tweaked with `-O3` flags
+* NUMA disabled by default(But you can easily enable back)
 * Disabled some unneeded debugging
 * Have native & easy support for custom toolchains
 
