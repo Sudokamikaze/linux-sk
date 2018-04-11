@@ -7,10 +7,10 @@
 # Maintainer: Sudokamikaze <keybase.io/sudokamikaze> <sudokamikaze@protonmail.com>
 
 pkgbase=linux-sk
-_skpatch=4.15.patch
-_srcname=linux-4.15
-_zenpatch=zen-4.15.15-ef91487f6283f065017dbaab49cb414eecf2d5ae.diff
-pkgver=4.15.15
+_skpatch=4.16.patch
+_srcname=linux-4.16
+_zenpatch=zen-4.16.1-f20dd4fd5e9e1cae2f8ebc35186b574658c9ae25.diff
+pkgver=4.16.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -34,18 +34,18 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
   '8218F88849AAC522E94CF470A5E9288C4FA415FA'  # Jan Alexander Steffens (heftig)
 )
-sha256sums=('5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769'
+sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             'SKIP'
-            'd8e7f93e24db5517a1be2030a765431120e07f7cd55e510d0de562c70e45bc00'
+            '66931bd802eb8d9f09b1f36bb57f24abab13230469ee855e5aaa2f93be2022e0'
             'SKIP'
-            '0b647300c39039f30f9298d7c3f8d5aa4a70fd9edddf367379b719ae58efe5e8'
+            'd78db8b9d3c2f155bcef8ce8ff90d30ee37089b405ebaf46d3b20a870a789b8f'
             'SKIP'
-            '09ba1457837a6e69f5c3fd2156ad72e662319aa0dd4f51c203e401b1fabb4c40'
-            '73af1395d6ba5f067b3e84a51297817e76b365af1f508facedce88cd0b8b4b3d'
+            'fdde04cc0fafdc86c457ae3dd38a14092c7223bdd49db50fee319f1219ddc248'
+            'd8b2453a429fb27d9baedba7065eaf77f9db29f0b46596952b8a68ba0fa019c2'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            'SKIP'
+            'e877b63fba997650044e59c42b6508088e340ff61aabedfd1e70138587478626'
             '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
 
 _kernelname=${pkgbase#linux}
@@ -93,17 +93,17 @@ END
 
   # disable NUMA since 99.9% of users do not have multiple CPUs but do have multiple cores in one CPU
   # see, https://bugs.archlinux.org/task/31187
-  if [ "$disable_numa" == "true" ]; then
-     sed -i -e 's/CONFIG_NUMA=y/# CONFIG_NUMA is not set/' \
-      -i -e '/CONFIG_AMD_NUMA=y/d' \
-      -i -e '/CONFIG_X86_64_ACPI_NUMA=y/d' \
-      -i -e '/CONFIG_NODES_SPAN_OTHER_NODES=y/d' \
-      -i -e '/# CONFIG_NUMA_EMU is not set/d' \
-      -i -e '/CONFIG_NODES_SHIFT=6/d' \
-      -i -e '/CONFIG_NEED_MULTIPLE_NODES=y/d' \
-      -i -e '/CONFIG_USE_PERCPU_NUMA_NODE_ID=y/d' \
-      -i -e '/CONFIG_ACPI_NUMA=y/d' ./.config
-  fi
+  # if [ "$disable_numa" == "true" ]; then
+  #   sed -i -e 's/CONFIG_NUMA=y/# CONFIG_NUMA is not set/' \
+  #    -i -e '/CONFIG_AMD_NUMA=y/d' \
+  #    -i -e '/CONFIG_X86_64_ACPI_NUMA=y/d' \
+  #    -i -e '/CONFIG_NODES_SPAN_OTHER_NODES=y/d' \
+  #    -i -e '/# CONFIG_NUMA_EMU is not set/d' \
+  #    -i -e '/CONFIG_NODES_SHIFT=6/d' \
+  #    -i -e '/CONFIG_NEED_MULTIPLE_NODES=y/d' \
+  #    -i -e '/CONFIG_USE_PERCPU_NUMA_NODE_ID=y/d' \
+  #    -i -e '/CONFIG_ACPI_NUMA=y/d' ./.config
+  # fi
 
   # Enable hard optimization in kernel
   if [ "$hard_optimization" == "true" ]; then
@@ -226,9 +226,6 @@ _package-headers() {
 
   install -Dt "${_builddir}/drivers/md" -m644 drivers/md/*.h
   install -Dt "${_builddir}/net/mac80211" -m644 net/mac80211/*.h
-
-  # http://bugs.archlinux.org/task/9912
-  install -Dt "${_builddir}/drivers/media/dvb-core" -m644 drivers/media/dvb-core/*.h
 
   # http://bugs.archlinux.org/task/13146
   install -Dt "${_builddir}/drivers/media/i2c" -m644 drivers/media/i2c/msp3400-driver.h
