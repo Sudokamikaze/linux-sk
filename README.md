@@ -22,7 +22,6 @@ Our features
 * Latest ZEN sources
 * Auto re-building modules for our kernel
 * LZ4 Compression. Inspired by @petter3k
-* HZ=1000
 * Modprobed-db support
 * GCC optimized
 * Tweaked with `-O3` flags

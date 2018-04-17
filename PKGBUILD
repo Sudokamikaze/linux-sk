@@ -9,7 +9,7 @@
 pkgbase=linux-sk
 _skpatch=4.16.patch
 _srcname=linux-4.16
-_zenpatch=zen-4.16.2-d7a1cfe7b2b2e464906bd6b7f5cdf7f3dd9c9d00.diff
+_zenpatch=zen-4.16.2-6357d9b211fc99cc1ea933a6a5d17d78a9638ce1.diff
 pkgver=4.16.2
 pkgrel=1
 arch=('x86_64')
@@ -38,14 +38,14 @@ sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             'SKIP'
             'fa82ef50579ea9b71b26b2ae98460380e22a48be2524f90548947a586988e575'
             'SKIP'
-            'c7f37f7393bffb1da95b42676e37df87bbb473d5f965a7e9c15c5219e8fcee0b'
+            '2cbb1f25e7d4430e0ebf3226c81047bb5ee6a50b29b3623b21afacb9dc0b2405'
             'SKIP'
             'fdde04cc0fafdc86c457ae3dd38a14092c7223bdd49db50fee319f1219ddc248'
-            'd8b2453a429fb27d9baedba7065eaf77f9db29f0b46596952b8a68ba0fa019c2'
+            '99e0013d6a2c18e81cf7e777cec19da2d883d4956fa88f3da8909daf23bef57e'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            'e877b63fba997650044e59c42b6508088e340ff61aabedfd1e70138587478626'
+            'SKIP'
             '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
 
 _kernelname=${pkgbase#linux}
