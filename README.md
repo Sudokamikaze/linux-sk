@@ -24,6 +24,7 @@ Our features
 * LZ4 Compression. Inspired by @petter3k
 * Modprobed-db support
 * GCC optimized
+* Reiser4 filesystem support
 * Tweaked with `-O3` flags
 * NUMA disabled by default(But you can easily enable back)
 * Disabled some unneeded debugging

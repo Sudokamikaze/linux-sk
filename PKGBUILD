@@ -28,6 +28,7 @@ source=(
   linux.preset   # standard config files for mkinitcpio ramdisk
   sk.config      # Linux-sk
   jitterentropy_fix.patch # Small fix for JITTER_ENTOPY
+  https://netix.dl.sourceforge.net/project/reiser4/reiser4-for-linux-4.x/reiser4-for-4.16.0.patch.gz
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -46,7 +47,8 @@ sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
             'SKIP'
-            '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89')
+            '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89'
+            '50abd319ba779eab6af067cca5edcccf6a681e18973a7393b9004d72ea3c876f')
 
 _kernelname=${pkgbase#linux}
 : ${_kernelname:=-ARCH}
@@ -74,6 +76,7 @@ END
   eval $(grep use_modprobed= ../sk.config)
   eval $(grep tc_path= ../sk.config)
   eval $(grep disable_numa= ../sk.config)
+  eval $(grep use_reiser= ../sk.config)
   eval $(grep hard_optimization= ../sk.config)
   else
   echo " "
@@ -109,6 +112,10 @@ END
   if [ "$hard_optimization" == "true" ]; then
     patch -p1 -i "${srcdir}/${_skpatch}"
     patch -p1 -i "${srcdir}/jitterentropy_fix.patch"
+  fi
+
+  if [ "$use_reiser" == "true" ]; then
+    patch -p1 -i "${srcdir}/reiser4-for-4.16.0.patch"
   fi
 
   # set extraversion to pkgrel and empty localversion
