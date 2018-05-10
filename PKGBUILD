@@ -9,8 +9,8 @@
 pkgbase=linux-sk
 _skpatch=4.16.patch
 _srcname=linux-4.16
-_zenpatch=zen-4.16.7-e4d0813294b6d9b3d9bbf2cd421a74c185bfe6d8.diff
-pkgver=4.16.7
+_zenpatch=zen-4.16.8-f93e2303b6d0af3f696da396053f762ad089d43f.diff
+pkgver=4.16.8
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -37,12 +37,12 @@ validpgpkeys=(
 )
 sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             'SKIP'
-            'f5ef83461054024814846eb816c76eba1b903f7e3e38c3417027b33070b60d91'
+            '6fb2db1e38f762e6a028dfa5e6d094f0eb4324572667923aca3d64c87117772d'
             'SKIP'
-            '3b6c003ec3a80fc58bc24a282a1b798c536ca38af6fb0a4745b8e33c2d185637'
+            'c9e778a55a23546bfeddf4ab47fe2ea53e1a41898f0f81945a1b365361a36f69'
             'SKIP'
             'fdde04cc0fafdc86c457ae3dd38a14092c7223bdd49db50fee319f1219ddc248'
-            'fe77e424bf1a42430e9cf27ac1b4e4161fe73c06c4f865507369b73466bae3ca'
+            'f1f60b7b57d77814d849543cc667eafe8ac7fade6d101039e7a491b24890ea07'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
@@ -94,19 +94,21 @@ END
     esac
   fi
 
-  # disable NUMA since 99.9% of users do not have multiple CPUs but do have multiple cores in one CPU
-  # see, https://bugs.archlinux.org/task/31187
-  # if [ "$disable_numa" == "true" ]; then
-  #   sed -i -e 's/CONFIG_NUMA=y/# CONFIG_NUMA is not set/' \
-  #    -i -e '/CONFIG_AMD_NUMA=y/d' \
-  #    -i -e '/CONFIG_X86_64_ACPI_NUMA=y/d' \
-  #    -i -e '/CONFIG_NODES_SPAN_OTHER_NODES=y/d' \
-  #    -i -e '/# CONFIG_NUMA_EMU is not set/d' \
-  #    -i -e '/CONFIG_NODES_SHIFT=6/d' \
-  #    -i -e '/CONFIG_NEED_MULTIPLE_NODES=y/d' \
-  #    -i -e '/CONFIG_USE_PERCPU_NUMA_NODE_ID=y/d' \
-  #    -i -e '/CONFIG_ACPI_NUMA=y/d' ./.config
-  # fi
+  ### Optionally disable NUMA for 64-bit kernels only
+  # (x86 kernels do not support NUMA)
+  if [ "$disable_numa" == "true" ]; then
+    msg "Disabling NUMA from kernel config..."
+    sed -i -e 's/CONFIG_NUMA=y/# CONFIG_NUMA is not set/' \
+      -i -e '/CONFIG_AMD_NUMA=y/d' \
+      -i -e '/CONFIG_X86_64_ACPI_NUMA=y/d' \
+      -i -e '/CONFIG_NODES_SPAN_OTHER_NODES=y/d' \
+      -i -e '/# CONFIG_NUMA_EMU is not set/d' \
+      -i -e '/CONFIG_NODES_SHIFT=6/d' \
+      -i -e '/CONFIG_NEED_MULTIPLE_NODES=y/d' \
+      -i -e '/# CONFIG_MOVABLE_NODE is not set/d' \
+      -i -e '/CONFIG_USE_PERCPU_NUMA_NODE_ID=y/d' \
+      -i -e '/CONFIG_ACPI_NUMA=y/d' ./.config
+  fi
 
   # Enable hard optimization in kernel
   if [ "$hard_optimization" == "true" ]; then
