@@ -9,8 +9,8 @@
 pkgbase=linux-sk
 _skpatch=4.16.patch
 _srcname=linux-4.16
-_zenpatch=zen-4.16.8-f93e2303b6d0af3f696da396053f762ad089d43f.diff
-pkgver=4.16.8
+_zenpatch=zen-4.16.10-2a005d7c4268886a9449b95997292b06b521de27.diff
+pkgver=4.16.10
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -37,12 +37,12 @@ validpgpkeys=(
 )
 sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             'SKIP'
-            '6fb2db1e38f762e6a028dfa5e6d094f0eb4324572667923aca3d64c87117772d'
+            '9fe6093be401fe0ff3f6cb3d428f137119a7befaf86d70f18c7e88871c1852d6'
             'SKIP'
-            'c9e778a55a23546bfeddf4ab47fe2ea53e1a41898f0f81945a1b365361a36f69'
+            '59ecd6dfd9e36498d75f881bf26679969f210244bc9db92809e02f81fd18daeb'
             'SKIP'
             'fdde04cc0fafdc86c457ae3dd38a14092c7223bdd49db50fee319f1219ddc248'
-            'f1f60b7b57d77814d849543cc667eafe8ac7fade6d101039e7a491b24890ea07'
+            '1d34828f1f1dac4275bea149ffe93f912c8be47655e699a70b2ac42bc7aafef5'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
