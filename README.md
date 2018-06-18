@@ -5,7 +5,7 @@ linux-sk - ZEN based kernel with additional features which described bellow
 
  My performance [patch](https://github.com/Sudokamikaze/makefile_patchset) source in my repositories.
 
-* Current -ZEN sources version: 4.16.13
+* Current -ZEN sources version: 4.17.2
 
 Table of contents
 -----------------

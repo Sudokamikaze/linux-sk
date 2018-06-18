@@ -6,11 +6,10 @@
 # linux-sk authors & contibutors
 # Maintainer: Sudokamikaze <keybase.io/sudokamikaze> <sudokamikaze@protonmail.com>
 
-pkgbase=linux-sk
-_skpatch=4.16.patch
-_srcname=linux-4.16
-_zenpatch=zen-4.16.13-d82f5185031cfe3009c376a9b7ade66a4fa218c3.diff
-pkgver=4.16.13
+pkgbase=linux-sk         # Build stock -zen modified kernel
+_srcname=linux-4.17
+_zenpatch=zen-4.17.2-8dd5b69c442e4d4595af9dffe65df65251ec1649.diff
+pkgver=4.17.2
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -21,34 +20,28 @@ source=(
   https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.{xz,sign}
   https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.{xz,sign}
   https://pkgbuild.com/~heftig/zen-patches/${_zenpatch}.{xz,sign}
-  https://raw.githubusercontent.com/Sudokamikaze/makefile_patchset/master/${_skpatch}
   config         # the main kernel config file
   60-linux.hook  # pacman hook for depmod
   90-linux.hook  # pacman hook for initramfs regeneration
   linux.preset   # standard config files for mkinitcpio ramdisk
-  sk.config      # Linux-sk
-  jitterentropy_fix.patch # Small fix for JITTER_ENTOPY
-  https://netix.dl.sourceforge.net/project/reiser4/reiser4-for-linux-4.x/reiser4-for-4.16.0.patch.gz
+  sk.config      # Config of our modification
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
   '8218F88849AAC522E94CF470A5E9288C4FA415FA'  # Jan Alexander Steffens (heftig)
 )
-sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
+sha256sums=('9faa1dd896eaea961dc6e886697c0b3301277102e5bc976b2758f9a62d3ccd13'
             'SKIP'
-            '9efa0a74eb61240da53bd01a3a23759e0065811de53d22de7d679eabf847f323'
+            'a528b102daad9d3072b328f68d4fc7b4eff7641ad301d1a54e5b8f5385efeb0b'
             'SKIP'
-            '3bf0a1abfe1f195000fc8b69bd7a8a7a519ba40f22c8f9f20084b43b85ede515'
+            'd4f03fb23490caf2b823cce17c69388698c1392b42c5b2072700218a8724c537'
             'SKIP'
-            'fdde04cc0fafdc86c457ae3dd38a14092c7223bdd49db50fee319f1219ddc248'
-            '1d34828f1f1dac4275bea149ffe93f912c8be47655e699a70b2ac42bc7aafef5'
+            'd8e6ed07c9cbdcfdabb9ba6e2fcfe55601a8b903e389cd767293b0852e4aff35'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            'SKIP'
-            '37e603e0b97a289ea5a4ec065f7960a7adb59beaa7b13943b1c4451444224d89'
-            '50abd319ba779eab6af067cca5edcccf6a681e18973a7393b9004d72ea3c876f')
+            'eeb6748994b1a9436413d91df51120a3f62269d2b2b0ed013a4995a7db173491')
 
 _kernelname=${pkgbase#linux}
 : ${_kernelname:=-ARCH}
@@ -70,20 +63,20 @@ CONFIG_LOCALVERSION="${_kernelname}"
 CONFIG_LOCALVERSION_AUTO=n
 END
 
-  # Detect our config
-  if [ -f ../sk.config ]; then
+# Detect our config
+if [ -f ../sk.config ]; then
   eval $(grep cpu_optimization= ../sk.config)
   eval $(grep use_modprobed= ../sk.config)
   eval $(grep tc_path= ../sk.config)
   eval $(grep disable_numa= ../sk.config)
   eval $(grep use_reiser= ../sk.config)
   eval $(grep hard_optimization= ../sk.config)
-  else
+else
   echo " "
   echo "sk.config not found! "
   echo "Check our github page to download"
   exit 1
-  fi
+fi
 
   if [ $cpu_optimization == "true" ]; then
     case $(cat /proc/cpuinfo | grep "vendor_id" | uniq | awk {'print $3'}) in
@@ -110,15 +103,9 @@ END
       -i -e '/CONFIG_ACPI_NUMA=y/d' ./.config
   fi
 
-  # Enable hard optimization in kernel
-  if [ "$hard_optimization" == "true" ]; then
-    patch -p1 -i "${srcdir}/${_skpatch}"
-    patch -p1 -i "${srcdir}/jitterentropy_fix.patch"
-  fi
-
-  if [ "$use_reiser" == "true" ]; then
-    patch -p1 -i "${srcdir}/reiser4-for-4.16.0.patch"
-  fi
+#  if [ "$use_reiser" == "true" ]; then
+#    patch -p1 -i "${srcdir}/reiser4-for-4.16.0.patch"
+#  fi
 
   # set extraversion to pkgrel and empty localversion
   sed -e "/^EXTRAVERSION =/s/=.*/= -${pkgrel}/" \
@@ -131,9 +118,9 @@ END
   # get kernel version
   make prepare
 
-  if [ "$use_modprobed" == "true" ]; then
+if [ "$use_modprobed" == "true" ]; then
   make LSMOD=$HOME/.config/modprobed.db localmodconfig
-  fi
+fi
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
@@ -153,7 +140,7 @@ build() {
 case "$tc_path" in
   "/"*) export CROSS_COMPILE="$tc_path" ;;
 esac
-
+  
   make bzImage modules
 }
 
