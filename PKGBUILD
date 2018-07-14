@@ -8,8 +8,8 @@
 
 pkgbase=linux-sk         # Build stock -zen modified kernel
 _srcname=linux-4.17
-_zenpatch=zen-4.17.5-ef5dbb1173361d7bdf664bd2a64535a84dbb0203.diff
-pkgver=4.17.5
+_zenpatch=zen-4.17.6-65e98ffaf639c363f7d991c0d50b4c38b8e9373e.diff
+pkgver=4.17.6
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/zen-kernel/zen-kernel"
@@ -33,11 +33,11 @@ validpgpkeys=(
 )
 sha256sums=('9faa1dd896eaea961dc6e886697c0b3301277102e5bc976b2758f9a62d3ccd13'
             'SKIP'
-            'cc18fcf14df25f0bab047aa180b9362bd4f3ce96f1b05e1f7764cfcc0e271bbd'
+            '7699b2246e4ed1e284f2947d5e0b66653c27574995caf6a02a3280bd055cfedf'
             'SKIP'
-            '26c752dcf2e768e001ff2cbc90c3ffde49fbbbeecdf1ac5f725bc5e1cbf3e990'
+            '44e7e1b16a04999cae93c636826965a61125fb458b07ecaf6934cff80908752d'
             'SKIP'
-            'd8e6ed07c9cbdcfdabb9ba6e2fcfe55601a8b903e389cd767293b0852e4aff35'
+            'e7ec5c83764cd8f5b57537b5a7e0b72d51b9bf8b7fba175a736dee7259c48c49'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             '75f99f5239e03238f88d1a834c50043ec32b1dc568f2cc291b07d04718483919'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
